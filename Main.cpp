@@ -136,9 +136,9 @@ char finale(int y_target,float y_save, int score){
     floodfill(240-25,240,WHITE);
     setcolor(GREEN);
     if(score!=-1){
-    circle(240,240-3*(int(y_save)-y_target),10);
+    circle(240,240-int(2.5*(y_save-float(y_target))),10);
     setfillstyle(1,LIGHTGREEN);
-    floodfill(240,240-3*(int(y_save)-y_target),GREEN);
+    floodfill(240,240-int(2.5*(y_save-float(y_target))),GREEN);
     }
     settextstyle(6,0,4);
     setcolor(WHITE);
@@ -200,6 +200,12 @@ int main()
     float y=yi;
     putpixel(xi,yi,WHITE);
     for(float i=0;i<20;i+=0.025){
+        if(y>480||x>640) break;
+        if(x>=x_target){
+            y_save=y;
+            break;
+        }
+        else y_save=y;
         x=power*cos(angle)*i+xi;
         y=yi-(power*sin(angle)*i-0.5*g*i*i);
         setcolor(WHITE);
@@ -213,12 +219,6 @@ int main()
         circle(x,y,2);
         circle(x,y,3);
         circle(x,y,4);
-        if(y>480||x>640) break;
-        if(x>=x_target){
-            y_save=y;
-            break;
-        }
-        else y_save=y;
     }
     score=calcscore(y_save,y_target);
     clearscreen();
