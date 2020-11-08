@@ -36,26 +36,34 @@ void intro(){
     outtextxy(105,30,"R");
     delay(200);
     outtextxy(170,30,"C");
+    setcolor(YELLOW);
     line(20,20,520,20);
+    setcolor(LIGHTCYAN);
     delay(200);
     outtextxy(235,30,"H");
     delay(200);
     outtextxy(305,30,"E");
     delay(200);
     outtextxy(365,30,"R");
+    setcolor(YELLOW);
     line(520,20,520,160);
+    setcolor(LIGHTCYAN);
     delay(200);
     outtextxy(430,30,"Y");
     delay(200);
     outtextxy(40,90,"G");
     delay(200);
     outtextxy(105,90,"A");
+    setcolor(YELLOW);
     line(520,160,20,160);
+    setcolor(LIGHTCYAN);
     delay(200);
     outtextxy(170,90,"M");
     delay(200);
     outtextxy(250,90,"E");
+    setcolor(YELLOW);
     line(20,20,20,160);
+    setcolor(LIGHTCYAN);
     delay(200);
     settextstyle(4,0,2);
     setcolor(WHITE);
@@ -63,7 +71,7 @@ void intro(){
     outtextxy(40,325,"2K18/CO/097 Aryan Rana");
     outtextxy(40,350,"2K18/CO/317 Sanchit Singh");
     delay(1000);
-    setcolor(YELLOW);
+    setcolor(LIGHTGREEN);
     outtextxy(40,400,"Press any key to start");
     cin>>test;
     setlinestyle(0,0,1);
@@ -217,7 +225,7 @@ int main()
     choice=finale(y_save,y_target,score);
     if(choice=='1'){
         closegraph();
-        cout<<endl<<endl;
+        cout<<endl;
         goto reset;
     }
     else if(choice=='2'){
