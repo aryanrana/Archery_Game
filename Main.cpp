@@ -8,13 +8,15 @@
 #define PI 3.141592654
 using namespace std;
 
-void clearscreen(){
+void clearscreen()
+{
     setcolor(BLACK);
     setfillstyle(1,BLACK);
     bar(0,0,640,480);
 }
 
-void intro(){
+int intro()
+{
     int test;
     for(int i=1;i<=720;++i){
         if((i/40)%2==0) setcolor(LIGHTRED);
@@ -72,12 +74,15 @@ void intro(){
     outtextxy(40,350,"2K18/CO/317 Sanchit Singh");
     delay(1000);
     setcolor(LIGHTGREEN);
-    outtextxy(40,400,"Press any key to start");
+    outtextxy(40,400,"Enter difficulty");
     cin>>test;
     setlinestyle(0,0,1);
+    return test;
 }
 
-void target(int x_target,int y_target){
+
+void target(int x_target,int y_target)
+{
     setcolor(WHITE);
     ellipse(x_target,y_target,0,360,20,80);
     ellipse(x_target,y_target,0,360,15,60);
@@ -99,12 +104,15 @@ void target(int x_target,int y_target){
 }
 
 
-int calcscore(float y_save,int y_target){
+int calcscore(float y_save,int y_target)
+{
   if(abs(int(y_target)-int(y_save))>80) return -1;
   else return (80-(abs(int(y_target)-int(y_save))));
 }
 
-void bow(int x_i, int y_i){
+
+void bow(int x_i, int y_i)
+{
     setcolor(WHITE);
     line(x_i-7,y_i,x_i-43,y_i);
     line(x_i,y_i,x_i-7,y_i+7);
@@ -118,7 +126,9 @@ void bow(int x_i, int y_i){
     line(x_i-38,y_i,x_i-45,y_i-7);
 }
 
-char finale(int y_target,float y_save, int score){
+
+char finale(int y_target,float y_save, int score)
+{
     char res[10];
     char ret;
     setcolor(WHITE);
@@ -169,28 +179,39 @@ char finale(int y_target,float y_save, int score){
     cin>>ret;
     return ret;
 }
+
+
 int main()
 {
     srand(time(0));
     int gd = DETECT, gm;
     float angle1;
     char choice;
-    float power,xi,yi,g=10,y_target,x_target,y_save=-1,intro_flag=0;
+    float power,xi,yi,g=10,y_target,x_target,y_save=-1,intro_flag=0,wind,test;
+    char windy[10];
     reset:
     xi=rand()%150+70;
     yi=rand()%350+50;
     x_target=rand()%200+400;
     y_target=rand()%300+80;
+    wind=rand()%100-50;
     reset1:
     initgraph(&gd, &gm, "");
     if(intro_flag==0){
-        intro();
+        test=intro();
         intro_flag=1;
     }
+    g=g*(1.0+float(test)/10.0);
     int score;
     clearscreen();
     bow(xi-3,yi);
     target(x_target,y_target);
+    settextstyle(4,0,1);
+    outtextxy(150,440,"Wind is:");
+    itoa(abs(wind),windy,10);
+    if(wind<0) outtextxy(290,440,",towards target");
+    else outtextxy(290,440,",towards player");
+    outtextxy(260,440,windy);
     cout<<"Enter power:";
     cin>>power;
     cout<<"Enter angle:";
@@ -206,7 +227,7 @@ int main()
             break;
         }
         else y_save=y;
-        x=power*cos(angle)*i+xi;
+        x=power*cos(angle)*i+xi-wind*i;
         y=yi-(power*sin(angle)*i-0.5*g*i*i);
         setcolor(WHITE);
         circle(x,y,1);
@@ -228,6 +249,7 @@ int main()
         cout<<endl;
         goto reset;
     }
+
     else if(choice=='2'){
         closegraph();
         cout<<endl;
